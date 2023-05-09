@@ -48,19 +48,26 @@ let swLng = lng - deltaLng;
 let neLat = lat + deltaLat;
 let neLng = lng + deltaLng;
 
+// 初始化函式
+function init() {
+  getData();
+}
+
 // 取得ATM地點資料集
-axios
-  .get("https://atm-6000.onrender.com/data")
-  .then((res) => {
-    data = res.data;
-    // 取得資料後地圖初始化 , loading結束 , loading背景消除
-    initMap();
-    spinner.stop();
-    loadingBackground.setAttribute("class", "d-none");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+function getData() {
+  axios
+    .get("https://atm-6000.onrender.com/data")
+    .then((res) => {
+      data = res.data;
+      // 取得資料後地圖初始化 , loading結束 , loading背景消除
+      initMap();
+      spinner.stop();
+      loadingBackground.setAttribute("class", "d-none");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}
 
 // Google Map 初始化函式
 function initMap() {
@@ -229,6 +236,9 @@ function initMap() {
     );
   });
 }
+
+// 初始化
+init()
 
 // 地圖初始化
 window.initMap = initMap;
